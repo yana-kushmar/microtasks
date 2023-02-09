@@ -1,26 +1,60 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {MouseEvent, useState} from 'react';
 import './App.css';
+import {Body} from './site/Body';
+import {Header} from "./site/Header";
+import {Cars, topCars} from "./NewComponent/MethodMap";
+import {Button} from "./Components/Button";
+import { FilterTest } from './NewComponent/filter';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const button1Foo = (sub: string, age: number, country: string) => {
+        console.log(sub, age, country)
+    }
+
+    const button2Foo = (sub: string, age?: number) => {
+        console.log(sub)
+    }
+    const button3Foo = (text: string) => {
+        console.log(text)
+    }
+
+  // let a = 1
+let [a, setA] = useState(1)
+    const onClickHandler = () => {
+        setA(++a)
+
+        console.log(a)
+    }
+
+
+    const onClickHandler2 = () => {
+        setA(0)
+
+        console.log(a)
+    }
+
+
+
+    return (
+        <div>
+            <div>
+                <h1>{a}</h1>
+                <button onClick={onClickHandler}>Number</button>
+                <button onClick={onClickHandler2}>0</button>
+            </div>
+            <div>
+                <Header title={"new body"}/>
+                <Body titleForBody={"new body"}/>
+                <Cars topCars={topCars}/>
+                <Button name={"MyYouTubeChanel-1"} callBack={() => button1Foo( "im Yana", 22, "Minsk" )}/>
+                <Button name={"MyYouTubeChanel-2"} callBack={() => button2Foo("im Igor")}/>
+                <Button name={"Stupid"} callBack={() => button3Foo("im stupid button")}/>
+                <FilterTest />
+            </div>
+        </div>
+
+    )
 }
 
 export default App;
