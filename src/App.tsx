@@ -4,7 +4,10 @@ import {Body} from './site/Body';
 import {Header} from "./site/Header";
 import {Cars, topCars} from "./NewComponent/MethodMap";
 import {Button} from "./Components/Button";
-import { FilterTest } from './NewComponent/filter';
+import {FilterTest} from './NewComponent/filter';
+import {FullInput} from "./FullInput/FullInput";
+import {Input} from "./FullInput/Input";
+import {ButtonAdd} from "./FullInput/Button";
 
 function App() {
 
@@ -19,8 +22,8 @@ function App() {
         console.log(text)
     }
 
-  // let a = 1
-let [a, setA] = useState(1)
+    // let a = 1
+    let [a, setA] = useState(1)
     const onClickHandler = () => {
         setA(++a)
 
@@ -34,7 +37,23 @@ let [a, setA] = useState(1)
         console.log(a)
     }
 
+    let [message, setMessage] = useState([
+        {message: "message1"},
+        {message: "message2"},
+        {message: "message3"},
+    ])
 
+    let [title, setTitle] = useState('')
+    console.log(title)
+    const addMessage = (title: string) => {
+        let newMessage = {message: title}
+        setMessage([newMessage,...message])
+    }
+
+    const callButtonHandler = () => {
+        addMessage(title)
+        setTitle("")
+    }
 
     return (
         <div>
@@ -47,11 +66,23 @@ let [a, setA] = useState(1)
                 <Header title={"new body"}/>
                 <Body titleForBody={"new body"}/>
                 <Cars topCars={topCars}/>
-                <Button name={"MyYouTubeChanel-1"} callBack={() => button1Foo( "im Yana", 22, "Minsk" )}/>
+                <Button name={"MyYouTubeChanel-1"} callBack={() => button1Foo("im Yana", 22, "Minsk")}/>
                 <Button name={"MyYouTubeChanel-2"} callBack={() => button2Foo("im Igor")}/>
                 <Button name={"Stupid"} callBack={() => button3Foo("im stupid button")}/>
-                <FilterTest />
+                <FilterTest/>
+                {/*<FullInput addMessage={addMessage}/>*/}
+                <Input setTitle={setTitle} title={title} />
+                <ButtonAdd  name={"+"} callBack={callButtonHandler}/>
+
+                {message.map((el, index) => {
+                    return (
+                        <div key={index}>{el.message}</div>
+
+                    )
+
+                })}
             </div>
+
         </div>
 
     )
